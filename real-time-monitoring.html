@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales Analysis</title>
+    <!-- Include ApexCharts library -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: left;
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      /* Flexbox Container for Charts */
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .chart-container {
+        width: 48%; /* Adjust to fit side-by-side */
+        margin-bottom: 40px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      #chart1,
+      #chart2,
+      #chart3 {
+        width: 100%;
+        height: 350px;
+      }
+
+      .info {
+        text-align: center;
+        font-size: 1rem;
+        color: #555;
+        margin-top: 20px;
+      }
+
+      /* Responsive Styling */
+      @media (max-width: 768px) {
+        .chart-container {
+          width: 100%; /* Stacks charts vertically on smaller screens */
+        }
+
+        h1 {
+          font-size: 2rem;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        #chart1,
+        #chart2,
+        #chart3 {
+          height: 300px; /* Reduce chart height for small screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Page title -->
+    <h1>Sales Analysis</h1>
+
+    <!-- Container for both charts -->
+    <div class="container">
+      <!-- First chart: Sales by Month (left aligned) -->
+      <div class="chart-container">
+        <div id="chart1"></div>
+      </div>
+
+      <!-- Second chart: Contribution of Products in Total Sales (right aligned) -->
+      <div class="chart-container">
+        <div id="chart2"></div>
+      </div>
+    </div>
+
+    <!-- Donut Chart for Product Sales -->
+    <div class="container">
+      <div class="chart-container">
+        <div id="chart3"></div>
+      </div>
+    </div>
+
+    <script>
+      // Chart 1: Sales by Month (Diesel, Petrol, CNG)
+      var options1 = {
+        series: [
+          {
+            name: "Diesel",
+            type: "column",
+            data: [
+              35140, 24930, 37600, 32350, 25760, 38640, 27600, 35140, 23125,
+              37600, 29760, 32350, 25760, 38640, 27600, 35140, 23125, 37600,
+              29760, 32350, 25760, 38640, 27600, 35140, 23125, 37600, 29760,
+              32350, 25760, 38640,
+            ],
+          },
+          {
+            name: "Petrol",
+            type: "area",
+            data: [
+              44760, 36750, 33600, 42000, 40460, 31500, 47250, 33600, 42000,
+              36750, 29680, 44760, 40460, 31500, 47250, 33600, 42000, 36750,
+              29680, 44760, 40460, 31500, 47250, 33600, 42000, 36750, 29680,
+              44760, 40460, 31500,
+            ],
+          },
+          {
+            name: "CNG",
+            type: "line",
+            data: [
+              21600, 32400, 20160, 23790, 30240, 25750, 19440, 28800, 27440,
+              18000, 30240, 21600, 32400, 23790, 20160, 28800, 25750, 19440,
+              30240, 21600, 32400, 23790, 20160, 28800, 27440, 19440, 30240,
+              21600, 32400, 23790,
+            ],
+          },
+        ],
+        chart: { height: 350, type: "line", stacked: false },
+        stroke: { width: [0, 2, 5], curve: "smooth" },
+        plotOptions: { bar: { columnWidth: "50%" } },
+        fill: {
+          opacity: [0.85, 0.25, 1],
+          gradient: {
+            inverseColors: false,
+            shade: "light",
+            type: "vertical",
+            opacityFrom: 0.85,
+            opacityTo: 0.55,
+            stops: [0, 100, 100, 100],
+          },
+        },
+        labels: [
+          "01/01/2003",
+          "02/01/2003",
+          "03/01/2003",
+          "04/01/2003",
+          "05/01/2003",
+          "06/01/2003",
+          "07/01/2003",
+          "08/01/2003",
+          "09/01/2003",
+          "10/01/2003",
+          "11/01/2003",
+        ],
+        markers: { size: 0 },
+        xaxis: {
+          type: "datetime",
+          title: {
+            text: "Sales by Month",
+            style: { fontSize: "14px", fontWeight: "bold", color: "#333" },
+          },
+        },
+        yaxis: {
+          title: {
+            text: "Points",
+            style: { fontSize: "14px", fontWeight: "bold", color: "#333" },
+          },
+        },
+        tooltip: {
+          shared: true,
+          intersect: false,
+          y: {
+            formatter: function (y) {
+              return y !== undefined ? y.toFixed(0) + " points" : y;
+            },
+          },
+        },
+      };
+
+      // Render Chart 1
+      var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+      chart1.render();
+
+      // Chart 2: Contribution of Products to Total Sales
+      var options2 = {
+        series: [
+          {
+            name: "Sales",
+            data: [
+              101500, 94080, 91360, 98140, 96460, 95890, 94290, 97540, 92565,
+              92350, 89680, 98710, 98620, 93930, 95010, 97540, 90875, 93790,
+              89680, 98710, 98620, 93930, 95010, 97540, 90875, 93790, 89680,
+              98710, 98620, 93930,
+            ],
+          },
+        ],
+        chart: { height: 350, type: "line", zoom: { enabled: false } },
+        dataLabels: { enabled: false },
+        stroke: { curve: "straight" },
+        title: {
+          text: "Contribution of the Products in Total Sales",
+          align: "left",
+        },
+        grid: { row: { colors: ["#f3f3f3", "transparent"], opacity: 0.5 } },
+        xaxis: {
+          categories: [
+            "31-Jan",
+            "1-Feb",
+            "2-Feb",
+            "3-Feb",
+            "4-Feb",
+            "5-Feb",
+            "6-Feb",
+            "7-Feb",
+            "8-Feb",
+            "9-Feb",
+            "10-Feb",
+            "11-Feb",
+            "12-Feb",
+            "13-Feb",
+            "14-Feb",
+            "15-Feb",
+            "16-Feb",
+            "17-Feb",
+            "18-Feb",
+            "19-Feb",
+            "20-Feb",
+            "21-Feb",
+            "22-Feb",
+            "23-Feb",
+            "24-Feb",
+            "25-Feb",
+            "26-Feb",
+            "27-Feb",
+            "28-Feb",
+            "29-Feb",
+          ],
+        },
+      };
+
+      // Render Chart 2
+      var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+      chart2.render();
+
+      // Chart 3: Donut Chart for Product Sales (Medium Size)
+      var options3 = {
+        series: [44, 55, 41],
+        chart: {
+          type: "donut",
+          width: "350px", // Medium size for the donut chart
+        },
+        title: {
+          text: "Product Sales",
+          align: "center",
+          style: { fontSize: "18px", fontWeight: "bold", color: "#333" },
+        },
+        labels: ["Diesal", "Petrol", "CNG"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: { width: 250 },
+              legend: { position: "bottom" },
+            },
+          },
+        ],
+      };
+
+      // Render Donut Chart
+      var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+      chart3.render();
+    </script>
+  </body>
+</html>

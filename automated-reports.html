@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuel Purchase</title>
+    <link rel="stylesheet" href="automated.css" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="container">
+        <h1>Fuel Purchase</h1>
+      </div>
+    </header>
+
+    <!-- Fuel Details Section -->
+    <section id="fuel-details" class="container">
+      <h2>Choose Your Fuel</h2>
+      <div class="fuel-details">
+        <!-- Petrol -->
+        <div class="fuel-card" id="petrol-card">
+          <img src="petrol.jpg" alt="Petrol" />
+          <h3>Petrol</h3>
+          <p id="petrol-price">₹90.00 / litre</p>
+          <label for="petrol-amount">Amount to Spend (₹):</label>
+          <input
+            type="number"
+            id="petrol-amount"
+            min="0"
+            step="0.1"
+            onchange="calculateQuantity('petrol')"
+            placeholder="Enter amount"
+          />
+          <p>Quantity: <span id="petrol-quantity">0.00</span> Litres</p>
+        </div>
+
+        <!-- Diesel -->
+        <div class="fuel-card" id="diesel-card">
+          <img src="diesel.jpg" alt="Diesel" />
+          <h3>Diesel</h3>
+          <p id="diesel-price">₹80.00 / litre</p>
+          <label for="diesel-amount">Amount to Spend (₹):</label>
+          <input
+            type="number"
+            id="diesel-amount"
+            min="0"
+            step="0.1"
+            onchange="calculateQuantity('diesel')"
+            placeholder="Enter amount"
+          />
+          <p>Quantity: <span id="diesel-quantity">0.00</span> Litres</p>
+        </div>
+
+        <!-- CNG -->
+        <div class="fuel-card" id="cng-card">
+          <img src="cng.jpg" alt="CNG" />
+          <h3>CNG</h3>
+          <p id="cng-price">₹50.00 / litre</p>
+          <label for="cng-amount">Amount to Spend (₹):</label>
+          <input
+            type="number"
+            id="cng-amount"
+            min="0"
+            step="0.1"
+            onchange="calculateQuantity('cng')"
+            placeholder="Enter amount"
+          />
+          <p>Quantity: <span id="cng-quantity">0.00</span> Litres</p>
+        </div>
+      </div>
+
+      <!-- Total Amount Section -->
+      <section id="total-amount">
+        <h2>Total Amount to Pay</h2>
+        <p>₹<span id="total-amount-value">0.00</span></p>
+      </section>
+
+      <!-- Proceed to Payment Button -->
+      <div id="payment-button">
+        <a href="secure-payment.html" id="proceed-payment-btn">
+          <button class="btn-proceed">Proceed to Payment</button>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Fuel Management System. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="automated.js"></script>
+  </body>
+</html>
